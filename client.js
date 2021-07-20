@@ -40,4 +40,25 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
+
+// 1. create array for new objects
+    // loop on employees, (create function) creating new obj for each employee, (create function) for bonus calculation
+    // add it to array
+let bonuses = [];
+
+for (employee of employees) {
+  // calc bonus %
+  // create new object
+  let bonus = {
+      name: employee.name,
+      bonusPercentage: //result of bonus calculation
+      totalCompensation: //result
+      totalBonus://result
+  }//new object
+  // push to new array
+  bonuses.push(bonus);
+}
+
+
+
 console.log( employees );
