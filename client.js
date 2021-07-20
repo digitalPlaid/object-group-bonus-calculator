@@ -46,33 +46,58 @@ const employees = [
     // add it to array
 let bonuses = [];
 
-for (employee of employees){
-  let bonusPercentage = bonusPercentageCalc(employee);
-    // calc bonus %
-  // create new object
+function calcBonuses() {
+  for (employee of employees){
+    let bonusPercentage = bonusPercentageCalc(employee);
+      // calc bonus %
+    // create new object
+    let bonus = {
+        name: employee.name,
+        bonusPercentage: bonusPercentage, //result of bonus calculation
+        totalCompensation: Math.round(employee.annualSalary*(1+bonusPercentage)), //result
+        totalBonus: Math.round(employee.annualSalary * bonusPercentage),//result
+    }//new object
+    // push to new array
+    bonuses.push(bonus);
+  }
+  $( '#display' ).on('click', displayData);
+  return bonuses;
+}
+
+function Bonus(employeeObject) {
   let bonus = {
-      name: employee.name,
-      bonusPercentage: bonusPercentage, //result of bonus calculation
-      totalCompensation: employee.annualSalary*(1+bonusPercentage), //result
-      totalBonus: employee.annualSalary*bonusPercentage,//result
-  }//new object
-  // push to new array
-  bonuses.push(bonus);
+    name: employee.name,
+    bonusPercentage: bonusPercentage, //result of bonus calculation
+    totalCompensation: Math.round(employee.annualSalary*(1+bonusPercentage)), //result
+    totalBonus: Math.round(employee.annualSalary * bonusPercentage),//result
+  }
+  return bonus;
+}
+
+
+function displayData() {
+  let output = $( '#employeeDataOut' )
+  output.empty();
+  for (bonus of bonuses) {
+    output.append(`<li>Name: ${bonus.name}, Bonus %: ${bonus.bonusPercentage}
+                  ${bonus.totalCompensation}, Total Bonus: ${bonus.totalBonus}</li>`);
+  }
 }
 
 function bonusPercentageCalc(employeeObject) {
   let reviewRating = employeeObject.reviewRating;
+  let bonusPercentage = 0;
   if(reviewRating === 5){
-    let bonusPercentage = .10;
+    bonusPercentage = .10;
   }
   if(reviewRating === 4){
-    let bonusPercentage =  .06;
+    bonusPercentage =  .06;
   }
   if(reviewRating === 3){
-    let bonusPercentage =  .04;
+    bonusPercentage =  .04;
   }
   if(reviewRating <= 2){
-    let bonusPercentage = 0;
+    bonusPercentage = 0;
   }
   if (employeeObject.employeeNumber.length === 4) {
     bonusPercentage += .05;
@@ -94,3 +119,6 @@ function bonusPercentageCalc(employeeObject) {
 
 
 console.log( employees );
+
+
+$( document ).ready(calcBonuses);
