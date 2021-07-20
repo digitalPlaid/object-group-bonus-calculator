@@ -48,15 +48,17 @@ let bonuses = [];
 
 function calcBonuses() {
   for (employee of employees){
-    let bonusPercentage = bonusPercentageCalc(employee);
       // calc bonus %
     // create new object
+    let bonus = new Bonus(employee);
+    /*
     let bonus = {
         name: employee.name,
         bonusPercentage: bonusPercentage, //result of bonus calculation
         totalCompensation: Math.round(employee.annualSalary*(1+bonusPercentage)), //result
         totalBonus: Math.round(employee.annualSalary * bonusPercentage),//result
     }//new object
+    */
     // push to new array
     bonuses.push(bonus);
   }
@@ -65,13 +67,10 @@ function calcBonuses() {
 }
 
 function Bonus(employeeObject) {
-  let bonus = {
-    name: employee.name,
-    bonusPercentage: bonusPercentage, //result of bonus calculation
-    totalCompensation: Math.round(employee.annualSalary*(1+bonusPercentage)), //result
-    totalBonus: Math.round(employee.annualSalary * bonusPercentage),//result
-  }
-  return bonus;
+  this.name= employeeObject.name;
+  this.bonusPercentage= bonusPercentageCalc(employeeObject); //result of bonus calculation
+  this.totalCompensation= Math.round(employeeObject.annualSalary*(1+bonusPercentageCalc(employeeObject))); //result
+  this.totalBonus= Math.round(employeeObject.annualSalary * bonusPercentageCalc(employeeObject));//result
 }
 
 
